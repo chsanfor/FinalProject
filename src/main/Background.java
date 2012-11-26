@@ -21,4 +21,8 @@ public class Background {
 	public Image getImage() {
 		return image;
 	}
+	
+	public String getName() {
+		return name;
+	}
 }

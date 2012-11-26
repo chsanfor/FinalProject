@@ -25,7 +25,9 @@ public class Projectile {
 		
 	}
 	
-	public void launch() {
+	public void launch(int dx, int dy) {
 		hasLaunched = true;
+		shape.setX(shape.getX() + dx);
+		shape.setY(shape.getY() + dy);
 	}
 }

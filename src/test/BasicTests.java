@@ -11,7 +11,7 @@ public class BasicTests {
 	@Test
 	public void testLaunch() {
 		Projectile projectile = new Projectile();
-		projectile.launch();
+		projectile.launch(0, 0);
 		Assert.assertTrue(projectile.isHasLaunched());
 		
 	}
@@ -19,9 +19,9 @@ public class BasicTests {
 	@Test
 	public void testGravity() {
 		GameGUI gameGUI = new GameGUI();
-		Background Earth = new Background();
+		Background Earth = new Background("Earth");
 		gameGUI.drawBackground(Earth);
-		Assert.assertEquals(gameGUI.getGravity(), 9.81);
+		Assert.assertEquals(9.81, gameGUI.getGravity(), .2);
 	}
 	
 	@Test
@@ -34,7 +34,7 @@ public class BasicTests {
 	public void testShapeMoves() {
 		Projectile projectile = new Projectile();
 		ProjectileShape projectileShape = projectile.getShape();
-		projectile.launch();
+		projectile.launch(5, 5);
 		Assert.assertNotSame(0, projectileShape.getX());
 		Assert.assertNotSame(0, projectileShape.getY());
 	}
