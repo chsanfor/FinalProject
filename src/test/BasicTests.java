@@ -1,8 +1,12 @@
 package test;
 
+import static org.junit.Assert.assertEquals;
+
 import java.awt.Image;
 
 import main.*;
+import main.Background.Planet;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -41,10 +45,12 @@ public class BasicTests {
 	
 	@Test
 	public void testImageChanges() {
-		Background b = new Background("Earth");
+		Background b = new Background(Planet.EARTH);
 		GameGUI gameGUI = new GameGUI();
 		Image backgroundImage = b.getImage();
 		gameGUI.drawBackground(b);
+		b.setPlanet(Planet.MARS);
 		Assert.assertNotSame(backgroundImage, b.getImage());
+		assertEquals("Mars", b.getName());
 	}
 }
