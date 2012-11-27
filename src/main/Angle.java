@@ -4,7 +4,12 @@ public class Angle {
 	private double angle;
 	
 	public Angle(double d) {
-		angle = d;
+		if(d <= 180) {
+			angle = d;
+		}
+		else {
+			angle = 0;
+		}
 	}
 	
 	public void setAngle(double angle) {
