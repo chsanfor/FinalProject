@@ -23,7 +23,6 @@ public class Background {
 		setPlanet(planet);
 	}
 
-
 	public Image getImage() {
 		return image;
 	}
@@ -45,7 +44,7 @@ public class Background {
 			try {
 				image = ImageIO.read(new File("src/main/resources/mars_view.jpg"));
 			} catch (IOException e) {
-				System.out.println("Earth image not found.");
+				System.out.println("Mars image not found.");
 			}
 		}
 	}
