@@ -10,9 +10,20 @@ import javax.imageio.ImageIO;
 
 public class Background {
 	
-	public enum Planet {EARTH, MARS};
+	public enum Planet {
+		EARTH(9.81), MARS(3.71);
+		private double gravity;
+		Planet(double gravity) {
+			this.gravity = gravity;
+		}
+		public double getGravity() {
+			return gravity;
+		}
+	};
+	
 	private String name;
 	private BufferedImage image;
+	private Planet planet;
 	
 	public Background() {
 		name = new String();
@@ -32,6 +43,7 @@ public class Background {
 	}
 	
 	public void setPlanet(Planet planet) {
+		this.planet = planet;
 		if (planet == Planet.EARTH) {
 			name = "Earth";
 			try {
@@ -47,5 +59,9 @@ public class Background {
 				System.out.println("Mars image not found.");
 			}
 		}
+	}
+
+	public Planet getPlanet() {
+		return planet;
 	}
 }

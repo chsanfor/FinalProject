@@ -17,24 +17,25 @@ import main.Background.Planet;
 @SuppressWarnings("serial")
 public class GameGUI extends JFrame {
 
-	// TODO - Van - Abstract Planet into own enum class with gravity as a var.
 	public static final int FRAME_HEIGHT = 700;
 	public static final int FRAME_WIDTH = 900;
-	private static final String GAME_NAME = "GAME NAME"; // FIXME	
-	private double gravity;
+	private static final String GAME_NAME = "GAME NAME"; // FIXME We need a name
 	private Background background;
 	private ImagePanel imagePanel;
 	private JMenuItem earthMenuItem, marsMenuItem;
 	private Target target1, target2, target3;
+	private ControlGUI controlGUI;
 
-	public GameGUI() {
+	/**
+	 * @param planet, default planet for GameGUI
+	 */
+	public GameGUI(Planet planet) {
 		super(GAME_NAME);
-		background = new Background(Planet.MARS);
+		background = new Background(planet);
 		imagePanel = new ImagePanel(background.getImage());
+		controlGUI = new ControlGUI();
 		earthMenuItem = new JMenuItem(Planet.EARTH.toString());
 		marsMenuItem = new JMenuItem(Planet.MARS.toString());
-
-		gravity = 9.81; // FIXME - Van - Make this dynamic based on 
 
 		earthMenuItem.addActionListener(new PlanetItemListener());
 		marsMenuItem.addActionListener(new PlanetItemListener());
@@ -43,6 +44,7 @@ public class GameGUI extends JFrame {
 		setLayout(new BorderLayout());
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(FRAME_WIDTH, FRAME_HEIGHT);
+		setResizable(false); // Added to top user from expanding window and seeing actual background size.
 
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -53,6 +55,8 @@ public class GameGUI extends JFrame {
 		target1 = new Target(300, 300);
 		target2 = new Target(700, 400);
 		target3 = new Target(800, 0);
+		
+		add(controlGUI, BorderLayout.SOUTH);
 	}
 
 	private class ImagePanel extends JComponent {
@@ -119,11 +123,11 @@ public class GameGUI extends JFrame {
 	}
 
 	public double getGravity() {
-		return gravity;
+		return background.getPlanet().getGravity();
 	}
 
 	public static void main (String args[]) {
-		GameGUI gui = new GameGUI();
+		GameGUI gui = new GameGUI(Planet.EARTH);
 		gui.setVisible(true);
 	}
 }

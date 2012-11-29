@@ -13,12 +13,13 @@ public class Target {
 	
 	public static final int TARGETSIZE = 50;
 	private int xTopLeft, yTopLeft;
-	private Image image;
+	private static Image targetImage, explosionImage;
 	private long pointValue, targetDistance;
 
 	public Target(int x, int y) {
 		try {
-			image = ImageIO.read(new File("src/main/resources/polygon.png"));
+			targetImage = ImageIO.read(new File("src/main/resources/polygon.png"));
+			explosionImage = ImageIO.read(new File("src/main/resources/explosion.png"));
 		} catch (IOException e) {
 			System.out.println("Projectile image cannot be located.");
 		}
@@ -34,8 +35,8 @@ public class Target {
 	// Draws target and point value
 	public void draw(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
-		g2.setColor(Color.RED);
-		g2.drawImage(image, xTopLeft, yTopLeft, TARGETSIZE, TARGETSIZE, Color.PINK, null);
+		g2.setColor(Color.BLACK);
+		g2.drawImage(targetImage, xTopLeft, yTopLeft, TARGETSIZE, TARGETSIZE, null);
 		g2.drawString(String.valueOf(pointValue), xTopLeft + TARGETSIZE/3, yTopLeft + TARGETSIZE/2);
 	}
 }
