@@ -24,7 +24,7 @@ public class BasicTests {
 	public void testGravity() {
 		GameGUI gameGUI = new GameGUI();
 		Background Earth = new Background(Planet.EARTH);
-		gameGUI.drawBackground(Earth);
+		gameGUI.getGravity();
 		Assert.assertEquals(9.81, gameGUI.getGravity(), .2);
 	}
 	
@@ -48,7 +48,6 @@ public class BasicTests {
 		Background b = new Background(Planet.EARTH);
 		GameGUI gameGUI = new GameGUI();
 		Image backgroundImage = b.getImage();
-		gameGUI.drawBackground(b);
 		b.setPlanet(Planet.MARS);
 		Assert.assertNotSame(backgroundImage, b.getImage());
 		assertEquals("Mars", b.getName());
