@@ -10,6 +10,8 @@ import javax.imageio.ImageIO;
 
 public class Background {
 	
+	// TODO - Van - Add name string.. Ex. EARTH(9.81, "Earth").
+	// Use this for drop down population
 	public enum Planet {
 		EARTH(9.81), MARS(3.71);
 		private double gravity;
