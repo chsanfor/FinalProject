@@ -8,16 +8,13 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.JPanel;
 
-@SuppressWarnings("serial")
-public class Target extends JPanel {
+public class Target {
 	
 	public static final int TARGETSIZE = 50;
 	private int xTopLeft, yTopLeft;
 	private Image image;
-	private int pointValue;
-	private int targetDistance;
+	private long pointValue, targetDistance;
 
 	public Target(int x, int y) {
 		try {
@@ -27,44 +24,18 @@ public class Target extends JPanel {
 		}
 		xTopLeft = x;
 		yTopLeft = y;
-		// TODO add formula to determine point value
-		targetDistance = 45;
-		
-		setSize(900, 700);
-		setVisible(true);
-		
-		/*// Get the images and put them into ImageIcons.
-		targetIcon = createImageIcon("/main/resources/polygon.png");
-		// Create a label with border for displaying the pictures.
-		pictureLabel = new JLabel();
-		pictureLabel.setHorizontalAlignment(JLabel.CENTER);
-		pictureLabel.setVerticalAlignment(JLabel.CENTER);
-		pictureLabel.setVerticalTextPosition(JLabel.CENTER);
-		pictureLabel.setHorizontalTextPosition(JLabel.CENTER);
-		pictureLabel.setIcon(targetIcon);
-
-		add(pictureLabel);	     */
+		// targetDistance is basic line length formula: L = Sqrt[ (x-x0)^2 + (y-y0)^2
+		targetDistance = Math.round(Math.sqrt(Math.pow(xTopLeft - GameGUI.FRAME_WIDTH/2,2) + 
+				Math.pow(yTopLeft - GameGUI.FRAME_HEIGHT,2)));
+		// Creating "nice" point values, ending in zero
+		pointValue = targetDistance/10 * 10;
 	}
-
-/*	// From Cyndi Rader's "Switchable" code
-	protected static ImageIcon createImageIcon(String path) {
-
-		java.net.URL imageURL = Target.class.getResource(path);
-
-		if (imageURL == null) {
-			System.err.println("Resource not found: " + path);
-			return null;
-		} else {
-			return new ImageIcon(imageURL);
-		}
-	}
-	*/
 	
-	public void paintComponent(Graphics g) {
-		System.out.println("ENTERED DRAW!");
+	// Draws target and point value
+	public void draw(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setColor(Color.RED);
 		g2.drawImage(image, xTopLeft, yTopLeft, TARGETSIZE, TARGETSIZE, Color.PINK, null);
-		// TODO Draw point value on target
+		g2.drawString(String.valueOf(pointValue), xTopLeft + TARGETSIZE/3, yTopLeft + TARGETSIZE/2);
 	}
 }

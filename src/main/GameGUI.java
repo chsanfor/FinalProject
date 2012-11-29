@@ -25,6 +25,7 @@ public class GameGUI extends JFrame {
 	private Background background;
 	private ImagePanel imagePanel;
 	private JMenuItem earthMenuItem, marsMenuItem;
+	private Target target1, target2, target3;
 
 	public GameGUI() {
 		super(GAME_NAME);
@@ -48,13 +49,10 @@ public class GameGUI extends JFrame {
 		menuBar.add(createFileMenu());
 		menuBar.add(createPlanetSelectMenu());
 
-		// Andrew added code
-		add(new Target(300, 300), BorderLayout.CENTER);
-		add(new Target(500, 400), BorderLayout.CENTER);
-		add(new Target(700, 150), BorderLayout.CENTER);
-		// JPanel picPanel = new JPanel();
-		// picPanel.add(target);
-		// add(picPanel, BorderLayout.CENTER);a
+		// TODO - Andrew - Change these target to something meaningful
+		target1 = new Target(300, 300);
+		target2 = new Target(700, 400);
+		target3 = new Target(800, 0);
 	}
 
 	private class ImagePanel extends JComponent {
@@ -68,6 +66,9 @@ public class GameGUI extends JFrame {
 		@Override
 		protected void paintComponent(Graphics g) {
 			g.drawImage(image, 0, 0, null);
+			target1.draw(g);
+			target2.draw(g);
+			target3.draw(g);
 		}
 
 		public void setImage(Image image) {
