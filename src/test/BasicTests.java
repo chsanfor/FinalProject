@@ -1,13 +1,14 @@
 package test;
 
 import static org.junit.Assert.assertEquals;
-
-import java.awt.Image;
-
-import main.*;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertTrue;
+import main.Angle;
 import main.Background.Planet;
+import main.GameGUI;
+import main.Projectile;
+import main.ProjectileShape;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 public class BasicTests {
@@ -16,22 +17,21 @@ public class BasicTests {
 	public void testLaunch() {
 		Projectile projectile = new Projectile();
 		projectile.launch(0, 0);
-		Assert.assertTrue(projectile.isHasLaunched());
+		assertTrue(projectile.isHasLaunched());
 		
 	}
 	
 	@Test
 	public void testGravity() {
-		GameGUI gameGUI = new GameGUI();
-		Background Earth = new Background(Planet.EARTH);
+		GameGUI gameGUI = new GameGUI(Planet.EARTH);
 		gameGUI.getGravity();
-		Assert.assertEquals(9.81, gameGUI.getGravity(), .2);
+		assertEquals(9.81, gameGUI.getGravity(), .2);
 	}
 	
 	@Test
 	public void testAngle() {
 		Angle angle = new Angle(200);
-		Assert.assertTrue(angle.getAngle() <= 180);
+		assertTrue(angle.getAngle() <= 180);
 	}
 	
 	@Test
@@ -39,17 +39,14 @@ public class BasicTests {
 		Projectile projectile = new Projectile();
 		ProjectileShape projectileShape = projectile.getShape();
 		projectile.launch(5, 5);
-		Assert.assertNotSame(0, projectileShape.getX());
-		Assert.assertNotSame(0, projectileShape.getY());
+		assertNotSame(0, projectileShape.getX());
+		assertNotSame(0, projectileShape.getY());
 	}
 	
 	@Test
 	public void testImageChanges() {
-		Background b = new Background(Planet.EARTH);
-		GameGUI gameGUI = new GameGUI();
-		Image backgroundImage = b.getImage();
-		b.setPlanet(Planet.MARS);
-		Assert.assertNotSame(backgroundImage, b.getImage());
-		assertEquals("Mars", b.getName());
+		GameGUI gameGUI = new GameGUI(Planet.EARTH);
+		GameGUI gameGUI2 = new GameGUI(Planet.MARS);
+		assertNotSame(gameGUI.getGravity(), gameGUI2.getGravity());
 	}
 }
