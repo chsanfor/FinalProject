@@ -18,7 +18,9 @@ import main.Background.Planet;
 public class GameGUI extends JFrame {
 	
 	// TODO - Van - Abstract Planet into own enum class with gravity as a var.
-	private static final String GAME_NAME = "GAME NAME"; // FIXME
+	public static final int FRAME_HEIGHT = 700;
+	public static final int FRAME_WIDTH = 900;
+	private static final String GAME_NAME = "GAME NAME"; // FIXME	
 	private double gravity;
 	private Background background;
 	private ImagePanel imagePanel;
@@ -39,7 +41,7 @@ public class GameGUI extends JFrame {
 		setContentPane(imagePanel);
 		setLayout(new BorderLayout());
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setSize(900, 700);
+		setSize(FRAME_WIDTH, FRAME_HEIGHT);
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		menuBar.add(createFileMenu());
