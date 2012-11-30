@@ -2,12 +2,16 @@ package main;
 
 import java.awt.BorderLayout;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -30,7 +34,8 @@ public class GameGUI extends JFrame {
 	private JMenuItem earthMenuItem, marsMenuItem;
 	private ArrayList<Target> targets;
 	private ControlGUI controlGUI;
-	private Graphics graphics;
+	private int pointsScored = 0;
+
 
 	/**
 	 * @param planet, default planet for GameGUI
@@ -56,7 +61,7 @@ public class GameGUI extends JFrame {
 		setJMenuBar(menuBar);
 		menuBar.add(createFileMenu());
 		menuBar.add(createPlanetSelectMenu());
-
+		
 		targets = new ArrayList<Target>();
 		Random rand = new Random();
 		// Adding targets that aren't too close to missile launch site
@@ -78,13 +83,14 @@ public class GameGUI extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			for(Target t: targets) {
-				if(t.getCanMove())
-					t.update(graphics);
+				if(t.getCanMove()) {
+					t.update();
+				}
 			}
 			repaint();
 		}
 	}
-	
+
 	private class ImagePanel extends JComponent {
 
 		private Image image;
@@ -95,10 +101,18 @@ public class GameGUI extends JFrame {
 
 		@Override
 		protected void paintComponent(Graphics g) {
-			graphics = g;
 			g.drawImage(image, 0, 0, null);
 			for(Target t: targets) {
 				t.draw(g);
+			}
+			// This is separate for loop to ensure all targets are drawn. Need to break to
+			// prevent for loop logic errors.
+			for(Target t: targets) {
+				if(t.isHit()) {
+					pointsScored += t.getPointValue();
+					targets.remove(t);
+					break;	
+				}
 			}
 		}
 

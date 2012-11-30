@@ -42,26 +42,32 @@ public class Target {
 	// Draws target and point value
 	public void draw(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
-		g2.drawImage(targetImage, xTopLeft, yTopLeft, TARGETSIZE, TARGETSIZE, null);
-		g2.drawString(String.valueOf(pointValue), 
+		if(isHit()) {
+			g2.drawImage(explosionImage, xTopLeft, yTopLeft, TARGETSIZE, TARGETSIZE, null);
+		}
+		else {
+			g2.drawImage(targetImage, xTopLeft, yTopLeft, TARGETSIZE, TARGETSIZE, null);
+			g2.drawString(String.valueOf(pointValue), 
 				xTopLeft + TARGETSIZE/3, yTopLeft + TARGETSIZE/2);
+		}
 	}
 
 	// If target can move, this updates position and point value
-	public void update(Graphics g) {
-		Graphics2D g2 = (Graphics2D) g;
+	public void update() {
 		xTopLeft = xTopLeft - MOVINGDISTANCE;
 		if(xTopLeft < 0) {
 			xTopLeft = GameGUI.FRAME_WIDTH;
 		}
 		calcPointValue(xTopLeft, yTopLeft);
-		g2.drawImage(targetImage, xTopLeft, yTopLeft, TARGETSIZE, TARGETSIZE, null);
-		g2.drawString(String.valueOf(pointValue), 
-				xTopLeft + TARGETSIZE/3, yTopLeft + TARGETSIZE/2);
+		// g2.drawImage(targetImage, xTopLeft, yTopLeft, TARGETSIZE, TARGETSIZE, null);
+		// g2.drawString(String.valueOf(pointValue), 
+		// xTopLeft + TARGETSIZE/3, yTopLeft + TARGETSIZE/2);
 	}
 	
+		
 	// TODO - Andrew - Implement this!
-	public void isHit() {
+	public boolean isHit() {
+		return false;
 	}
 	
 	public int getXValue() {
