@@ -6,6 +6,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -21,6 +22,8 @@ public class GameGUI extends JFrame {
 
 	public static final int FRAME_HEIGHT = 700;
 	public static final int FRAME_WIDTH = 900;
+	public static final int STATIC_TARGETS = 3;
+	public static final int MOVING_TARGETS = 3;
 	private static final String GAME_NAME = "GAME NAME"; // FIXME We need a name
 	private Background background;
 	private ImagePanel imagePanel;
@@ -54,15 +57,23 @@ public class GameGUI extends JFrame {
 		menuBar.add(createFileMenu());
 		menuBar.add(createPlanetSelectMenu());
 
-		// TODO - Andrew - Change these target to something meaningful
 		targets = new ArrayList<Target>();
-		targets.add(new Target(300, 300, true));
-		targets.add(new Target(700, 400, false));
-		targets.add(new Target(800, 0, false));
+		Random rand = new Random();
+		// Adding targets that aren't too close to missile launch site
+		for(int i = 0; i < STATIC_TARGETS; i++) {
+			targets.add(new Target(rand.nextInt(FRAME_WIDTH-Target.TARGETSIZE), 
+					rand.nextInt(FRAME_HEIGHT-4*Target.TARGETSIZE), false));
+		}
+		for(int i = 0; i < MOVING_TARGETS; i++) {
+			targets.add(new Target(rand.nextInt(FRAME_WIDTH-Target.TARGETSIZE), 
+					rand.nextInt(FRAME_HEIGHT-4*Target.TARGETSIZE), true));
+		}
 		// Targets move every 500 ms
 		Timer targetTimer = new Timer(500, new TimerListener());
 		targetTimer.start();
 		add(controlGUI, BorderLayout.SOUTH);
+		
+		updateBackground();
 	}
 
 	public class TimerListener implements ActionListener {
@@ -134,9 +145,15 @@ public class GameGUI extends JFrame {
 			updateBackground();
 		}
 	}
+	
+	public void moveProjectile() {
+		//TODO Implement
+		//TODO Add logic for Target & Projectile collision.
+	}
 
 	public void updateBackground() {
 		imagePanel.setImage(background.getImage());
+		controlGUI.setGravity(getGravity());
 		repaint();
 	}
 
