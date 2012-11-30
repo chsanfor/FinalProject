@@ -110,12 +110,15 @@ public class GameGUI extends JFrame {
 		protected void paintComponent(Graphics g) {
 			g.drawImage(image, 0, 0, null);
 			for(Target t: targets) {
-				t.draw(g);
+				if(t.isHit(projectile))
+					t.drawExplosion(g);
+				else
+					t.draw(g);
 			}
 			// This is separate for loop to ensure all targets are drawn. Need to break to
 			// prevent for loop logic errors.
 			for(Target t: targets) {
-				if(t.isHit()) {
+				if(t.isHit(projectile)) {
 					pointsScored += t.getPointValue();
 					targets.remove(t);
 					break;	

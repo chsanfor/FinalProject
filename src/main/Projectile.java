@@ -46,7 +46,7 @@ public class Projectile {
 
 	public void draw(Graphics g) {
 		// TODO Doesn't work yet
-		System.out.println("Calling projectile draw");
+		// System.out.println("Calling projectile draw");
 		Graphics2D g2 = (Graphics2D) g;
 		shape.draw(g2);
 	}

@@ -73,14 +73,14 @@ public class ProjectileShape {
 	}
 
 	public void draw(Graphics g) {	
-		System.out.println("Calling projectileShape draw");
+		// System.out.println("Calling projectileShape draw");
 		Graphics2D graphics2d = (Graphics2D) g;
 		graphics2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		graphics2d.setColor(Color.BLUE);
 		int m = Math.min(width, height);
 		radius = DIAMETER/2;
 		graphics2d.fillOval(x, y, 2 * radius, 2 * radius);
-		System.out.println(getX() + " " + getY() + " " + getRadius());
+		// System.out.println(getX() + " " + getY() + " " + getRadius());
 	}
 
 	

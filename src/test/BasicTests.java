@@ -15,7 +15,7 @@ public class BasicTests {
 	
 	@Test
 	public void testLaunch() {
-		Projectile projectile = new Projectile();
+		Projectile projectile = new Projectile(new ProjectileShape());
 		projectile.launch(0, 0);
 		assertTrue(projectile.isHasLaunched());
 		
@@ -36,7 +36,7 @@ public class BasicTests {
 	
 	@Test
 	public void testShapeMoves() {
-		Projectile projectile = new Projectile();
+		Projectile projectile = new Projectile(new ProjectileShape());
 		ProjectileShape projectileShape = projectile.getShape();
 		projectile.launch(5, 5);
 		assertNotSame(0, projectileShape.getX());

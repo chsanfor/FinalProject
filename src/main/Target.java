@@ -42,14 +42,14 @@ public class Target {
 	// Draws target and point value
 	public void draw(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
-		if(isHit()) {
-			g2.drawImage(explosionImage, xTopLeft, yTopLeft, TARGETSIZE, TARGETSIZE, null);
-		}
-		else {
-			g2.drawImage(targetImage, xTopLeft, yTopLeft, TARGETSIZE, TARGETSIZE, null);
-			g2.drawString(String.valueOf(pointValue), 
-				xTopLeft + TARGETSIZE/3, yTopLeft + TARGETSIZE/2);
-		}
+		g2.drawImage(targetImage, xTopLeft, yTopLeft, TARGETSIZE, TARGETSIZE, null);
+		g2.drawString(String.valueOf(pointValue), 
+			xTopLeft + TARGETSIZE/3, yTopLeft + TARGETSIZE/2);
+	}
+	
+	public void drawExplosion(Graphics g) {
+		Graphics2D g2 = (Graphics2D) g;
+		g2.drawImage(explosionImage, xTopLeft, yTopLeft, TARGETSIZE, TARGETSIZE, null);
 	}
 
 	// If target can move, this updates position and point value
@@ -66,14 +66,17 @@ public class Target {
 	
 		
 	// TODO - Andrew - Implement this!
-	public boolean isHit() {
+	public boolean isHit(Projectile p) {
+		if(xTopLeft < 40) {
+			return true;
+		}
 		return false;
 	}
 	
-	public int getXValue() {
+	public int getXTopLeft() {
 		return xTopLeft;
 	}
-	public int getYValue() {
+	public int getYTopLeft() {
 		return yTopLeft;
 	}
 	public long getPointValue() {
