@@ -35,6 +35,8 @@ public class GameGUI extends JFrame {
 	private ArrayList<Target> targets;
 	private ControlGUI controlGUI;
 	private int pointsScored = 0;
+	private ProjectileShape shape;
+	private Projectile projectile;
 
 
 	/**
@@ -78,6 +80,9 @@ public class GameGUI extends JFrame {
 		targetTimer.start();
 		add(controlGUI, BorderLayout.SOUTH);
 		
+		shape = new ProjectileShape();
+		projectile = new Projectile(shape);
+		
 		updateBackground();
 	}
 
@@ -116,6 +121,7 @@ public class GameGUI extends JFrame {
 					break;	
 				}
 			}
+			projectile.draw(g);
 		}
 
 		public void setImage(Image image) {

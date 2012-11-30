@@ -12,33 +12,30 @@ import javax.swing.JPanel;
 
 //KEEP IN MIND THE GAME SCREEN IS 900x700
 
-//TODO Not sure if this will work in GameGUI since it's a JPanel.
-//Any ideas to get most of the logic to work and just make it
-//a regular class? (Worried it might 'replace' background)
-public class ProjectileShape extends JPanel {
+//TODO Background is intact, but doesn't draw projectile
+
+public class ProjectileShape {
 	private int x;
 	private int y;
-	private static final int DIAMETER = 100;
-    private int width = DIAMETER / 2;
-    private int height = width;
-    private int radius = 4 * DIAMETER / 5;
-	private int n;
+	public static final int DIAMETER = 50;
+	private int width;
+	private int height;
+	private int radius;
 
 	public ProjectileShape() {
 		x = 0;
 		y = 0;
-		this.setPreferredSize(new Dimension(DIAMETER, DIAMETER));
-		n = DIAMETER;
+		width = DIAMETER / 2;
+		height = width;
+		radius = 4 * DIAMETER / 5;
 	}
-	
-	//TODO May need finishing if we want to play with n
-	public ProjectileShape(int n) {
-		x = 0;
-		y = 0;
-		this.setPreferredSize(new Dimension(DIAMETER, DIAMETER));
-		this.n = n;
+
+	public ProjectileShape(int x, int y) {
+		super();
+		this.x = x;
+		this.y = y;
 	}
-	
+
 	public int getX() {
 		return x;
 	}
@@ -56,40 +53,72 @@ public class ProjectileShape extends JPanel {
 	}
 
 	public int getRadius() {
+		return radius;
+	}
+
+	public int getWidth() {
 		return width;
 	}
-	
-	protected void paintComponent(Graphics g){
-		super.paintComponent(g);	
-		Graphics2D graphics2d = (Graphics2D) g;
-        graphics2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-            RenderingHints.VALUE_ANTIALIAS_ON);
-        graphics2d.setColor(Color.blue);
-        width = getWidth() / 2;
-        height = getHeight() / 2;
-        int m = Math.min(width, height);
-        radius = 4 * m / 5;
-        int r2 = Math.abs(m - radius) / 2;
-        graphics2d.fillOval(width - radius, height - radius, 2 * radius, 2 * radius);
+
+	public void setWidth(int width) {
+		this.width = width;
 	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+	public void draw(Graphics g) {	
+		System.out.println("Calling projectileShape draw");
+		Graphics2D graphics2d = (Graphics2D) g;
+		graphics2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		graphics2d.setColor(Color.BLUE);
+		int m = Math.min(width, height);
+		radius = DIAMETER/2;
+		graphics2d.fillOval(x, y, 2 * radius, 2 * radius);
+		System.out.println(getX() + " " + getY() + " " + getRadius());
+	}
+
 	
-	//Only for testing purposes; comment out after!
-//	 private static void create() {
-//	        JFrame f = new JFrame();
-//	        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//	        //f.add(new ProjectileShape(9));
-//	        f.add(new ProjectileShape());
-//	        f.pack();
-//	        f.setVisible(true);
-//	    }
-//	 
-//	   public static void main(String[] args) {
-//	        EventQueue.invokeLater(new Runnable() {
-//
-//	            @Override
-//	            public void run() {
-//	                create();
-//	            }
-//	        });
-//	    }
+	
+	//   Only for testing purposes; comment out after!
+
+	//	public void paintComponent(Graphics g) {
+	//	super.paintComponent(g);	
+	//	Graphics2D graphics2d = (Graphics2D) g;
+	//	graphics2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+	//	graphics2d.setColor(Color.blue);
+	//	width = getWidth() / 2;
+	//	height = getHeight() / 2;
+	//	int m = Math.min(width, height);
+	//	radius = 4 * m / 5;
+	//	graphics2d.fillOval(x, y, 2 * radius, 2 * radius);
+	//	//System.out.println("Still drawing");
+	//	System.out.println(getX() + " " + getY());
+	//	
+	//}
+
+	//	 private static void create() {
+	//	        JFrame f = new JFrame();
+	//	        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	//	        //f.add(new ProjectileShape(9));
+	//	        ProjectileShape shape = new ProjectileShape();
+	//	        //f.add(shape);
+	//	        f.pack();
+	//	        f.setVisible(true);
+	//	    }
+	//	 
+	//	   public static void main(String[] args) {
+	//	        EventQueue.invokeLater(new Runnable() {
+	//
+	//	            @Override
+	//	            public void run() {
+	//	                create();
+	//	            }
+	//	        });
+	//	    }
 }
