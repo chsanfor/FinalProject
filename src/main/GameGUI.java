@@ -63,6 +63,8 @@ public class GameGUI extends JFrame {
 		Timer targetTimer = new Timer(500, new TimerListener());
 		targetTimer.start();
 		add(controlGUI, BorderLayout.SOUTH);
+		
+		updateBackground();
 	}
 
 	public class TimerListener implements ActionListener {
@@ -134,9 +136,15 @@ public class GameGUI extends JFrame {
 			updateBackground();
 		}
 	}
+	
+	public void moveProjectile() {
+		//TODO Implement
+		//TODO Add logic for Target & Projectile collision.
+	}
 
 	public void updateBackground() {
 		imagePanel.setImage(background.getImage());
+		controlGUI.setGravity(getGravity());
 		repaint();
 	}
 
