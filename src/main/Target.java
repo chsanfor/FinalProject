@@ -59,7 +59,20 @@ public class Target {
 		g2.drawString(String.valueOf(pointValue), 
 				xTopLeft + TARGETSIZE/3, yTopLeft + TARGETSIZE/2);
 	}
-
+	
+	// TODO - Andrew - Implement this!
+	public void isHit() {
+	}
+	
+	public int getXValue() {
+		return xTopLeft;
+	}
+	public int getYValue() {
+		return yTopLeft;
+	}
+	public long getPointValue() {
+		return pointValue;
+	}
 	public boolean getCanMove() {
 		return canMove;
 	}
