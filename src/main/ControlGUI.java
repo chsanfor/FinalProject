@@ -1,6 +1,7 @@
 package main;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -16,7 +17,7 @@ public class ControlGUI extends JPanel {
 //	}
 	public ControlGUI() {
 		angle = new Angle(0);
-		setName("Missle Angle");
+		setBorder(new TitledBorder("Missle Angle"));
 		SpinnerNumberModel angleModel = new SpinnerNumberModel();
 		angleModel.setMaximum(180);
 		angleSelect = new JSpinner(angleModel);
