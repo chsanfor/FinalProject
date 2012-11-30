@@ -5,12 +5,14 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.Timer;
 
 import main.Background.Planet;
 
@@ -23,8 +25,9 @@ public class GameGUI extends JFrame {
 	private Background background;
 	private ImagePanel imagePanel;
 	private JMenuItem earthMenuItem, marsMenuItem;
-	private Target target1, target2, target3;
+	private ArrayList<Target> targets;
 	private ControlGUI controlGUI;
+	private Graphics graphics;
 
 	/**
 	 * @param planet, default planet for GameGUI
@@ -52,13 +55,27 @@ public class GameGUI extends JFrame {
 		menuBar.add(createPlanetSelectMenu());
 
 		// TODO - Andrew - Change these target to something meaningful
-		target1 = new Target(300, 300);
-		target2 = new Target(700, 400);
-		target3 = new Target(800, 0);
-		
+		targets = new ArrayList<Target>();
+		targets.add(new Target(300, 300, true));
+		targets.add(new Target(700, 400, false));
+		targets.add(new Target(800, 0, false));
+		// Targets move every 500 ms
+		Timer targetTimer = new Timer(500, new TimerListener());
+		targetTimer.start();
 		add(controlGUI, BorderLayout.SOUTH);
 	}
 
+	public class TimerListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			for(Target t: targets) {
+				if(t.getCanMove())
+					t.update(graphics);
+			}
+			repaint();
+		}
+	}
+	
 	private class ImagePanel extends JComponent {
 
 		private Image image;
@@ -69,10 +86,11 @@ public class GameGUI extends JFrame {
 
 		@Override
 		protected void paintComponent(Graphics g) {
+			graphics = g;
 			g.drawImage(image, 0, 0, null);
-			target1.draw(g);
-			target2.draw(g);
-			target3.draw(g);
+			for(Target t: targets) {
+				t.draw(g);
+			}
 		}
 
 		public void setImage(Image image) {
