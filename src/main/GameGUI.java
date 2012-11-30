@@ -37,8 +37,8 @@ public class GameGUI extends JFrame {
 		background = new Background(planet);
 		imagePanel = new ImagePanel(background.getImage());
 		controlGUI = new ControlGUI();
-		earthMenuItem = new JMenuItem(Planet.EARTH.toString());
-		marsMenuItem = new JMenuItem(Planet.MARS.toString());
+		earthMenuItem = new JMenuItem(Planet.EARTH.getName());
+		marsMenuItem = new JMenuItem(Planet.MARS.getName());
 
 		earthMenuItem.addActionListener(new PlanetItemListener());
 		marsMenuItem.addActionListener(new PlanetItemListener());

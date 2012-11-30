@@ -9,26 +9,28 @@ import javax.imageio.ImageIO;
 
 
 public class Background {
-	
-	// TODO - Van - Add name string.. Ex. EARTH(9.81, "Earth").
-	// Use this for drop down population
+
 	public enum Planet {
-		EARTH(9.81), MARS(3.71);
+		EARTH(9.81, "Earth"), MARS(3.71, "Mars");
 		private double gravity;
-		Planet(double gravity) {
+		private String name;
+		Planet(double gravity, String name) {
 			this.gravity = gravity;
+			this.name = name;
 		}
 		public double getGravity() {
 			return gravity;
 		}
+		public String getName() {
+			return name;
+		}
 	};
 	
-	private String name;
 	private BufferedImage image;
 	private Planet planet;
 	
 	public Background() {
-		name = new String();
+		
 	}
 	
 	public Background(Planet planet) {
@@ -40,21 +42,15 @@ public class Background {
 		return image;
 	}
 	
-	public String getName() {
-		return name;
-	}
-	
 	public void setPlanet(Planet planet) {
 		this.planet = planet;
 		if (planet == Planet.EARTH) {
-			name = "Earth";
 			try {
 				image = ImageIO.read(new File("src/main/resources/earth_view_from_moon.jpg"));
 			} catch (IOException e) {
 				System.out.println("Earth image not found.");
 			}
 		} else if (planet == Planet.MARS) {
-			name = "Mars";
 			try {
 				image = ImageIO.read(new File("src/main/resources/mars_view.jpg"));
 			} catch (IOException e) {
