@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 import main.Background.Planet;
@@ -156,7 +157,8 @@ public class GameGUI extends JFrame {
 			fireButton = new JButton("Fire");
 			fireButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					launchProjectile();
+					if (!projectile.isLaunched())
+						launchProjectile();
 				}
 			});
 			add(fireButton);
@@ -216,6 +218,9 @@ public class GameGUI extends JFrame {
 			shape.setY(shape.getY() - (int) ((int) Projectile.VELOCITY * Math.sin(controlGUI.getAngle().getDegrees()*Math.PI/180)*timeElapsed/1000 - 0.5*getGravity()*Math.pow(timeElapsed/1000, 2)));
 		} else {
 			projectile.resetProjectile();
+			if (targets.size() == 0 || shotCount == 0) {
+				endGameSplashScreen();
+			}
 		}
 	}
 	
@@ -236,6 +241,11 @@ public class GameGUI extends JFrame {
 
 	public double getGravity() {
 		return background.getPlanet().getGravity();
+	}
+	
+	public void endGameSplashScreen() {
+		JOptionPane.showMessageDialog(this, "Your Score: " + pointsScored);
+		System.exit(0);
 	}
 
 	public static void main (String args[]) {
