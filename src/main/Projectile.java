@@ -37,11 +37,16 @@ public class Projectile {
 		yLocation = (shape.getY() - shape.getRadius());
 	}
 	
-	public void launch(int dx, int dy) {
+	public void launch(Angle angle, double gravity) {
 		hasLaunched = true;
-		shape.setX(shape.getX() + dx);
-		shape.setY(shape.getY() + dy);
+		//shape.setX(shape.getX() + dx);
+		//shape.setY(shape.getY() + dy);
 		//TODO Trajectory logic (involving degrees and gravity) goes here (unless there is a separate flight function)
+	}
+	
+	// TODO Rename.
+	public void trajectory(double gravity) {
+		
 	}
 
 	public void draw(Graphics g) {
