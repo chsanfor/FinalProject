@@ -34,7 +34,7 @@ public class GameGUI extends JFrame {
 	private int pointsScored = 0;
 	private ProjectileShape shape;
 	private Projectile projectile;
-
+	private int shotCount;
 
 	/**
 	 * @param planet, default planet for GameGUI
@@ -79,6 +79,7 @@ public class GameGUI extends JFrame {
 		
 		shape = new ProjectileShape();
 		projectile = new Projectile(shape);
+		shotCount = targets.size();
 		
 		updateBackground();
 		launchProjectile();
@@ -191,7 +192,11 @@ public class GameGUI extends JFrame {
 	public void launchProjectile() {
 		// TODO Pass in angle from ControlGUI
 		Angle a = new Angle(45);
-		projectile.launch(a, getGravity());
+		if(shotCount > 0) {
+			projectile.launch(a, getGravity());
+			System.out.println(shotCount);
+			--shotCount;
+		}
 	}
 
 	public void updateBackground() {

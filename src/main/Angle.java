@@ -1,22 +1,22 @@
 package main;
 
 public class Angle {
-	private double angle;
+	private double degrees;
 	
 	public Angle(double d) {
 		if(d <= 180) {
-			angle = d;
+			degrees = d;
 		}
 		else {
-			angle = 0;
+			degrees = 0;
 		}
 	}
 	
-	public void setAngle(double angle) {
-		this.angle = angle;
+	public void setDegrees(double angle) {
+		this.degrees = angle;
 	}
 
-	public double getAngle() {
-		return angle;
+	public double getDegrees() {
+		return degrees;
 	}
 }
