@@ -1,12 +1,10 @@
 package main;
 
-import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
-import javax.swing.JPanel;
-
 public class Projectile {
+	public static final double VELOCITY = 20.0;
 	private boolean hasLaunched;
 	private ProjectileShape shape;
 	private int xLocation;
@@ -26,11 +24,6 @@ public class Projectile {
 	//Set the Projectile's ProjectileShape (not sure if this will see use)
 	public void setShape(ProjectileShape shape) {
 		this.shape = shape;
-	}
-	
-	//Set hasLaunched
-	public boolean isHasLaunched() {
-		return hasLaunched;
 	}
 
 	//Finds the center x and y of the circle
@@ -61,4 +54,16 @@ public class Projectile {
 		shape.draw(g2);
 	}
 	
+	public boolean isLaunched() {
+		return this.hasLaunched;
+	}
+	
+	public void resetProjectile() {
+		hasLaunched = false;
+		shape.reset();
+	}
+	
+	public void launch() {
+		hasLaunched = true;
+	}
 }

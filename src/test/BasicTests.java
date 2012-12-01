@@ -18,7 +18,7 @@ public class BasicTests {
 	public void testLaunch() {
 		Projectile projectile = new Projectile(new ProjectileShape());
 		//projectile.launch(0, 0);
-		assertTrue(projectile.isHasLaunched());
+		assertTrue(projectile.isLaunched());
 		
 	}
 	
@@ -32,7 +32,7 @@ public class BasicTests {
 	@Test
 	public void testAngle() {
 		Angle angle = new Angle(200);
-		assertTrue(angle.getAngle() <= 180);
+		assertTrue(angle.getDegrees() <= 180);
 	}
 	
 	@Test

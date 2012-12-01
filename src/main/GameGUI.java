@@ -34,6 +34,7 @@ public class GameGUI extends JFrame {
 	private int pointsScored;
 	private ProjectileShape shape;
 	private Projectile projectile;
+	private long lastMoveTime;
 	private int shotCount;
 
 	/**
@@ -78,12 +79,24 @@ public class GameGUI extends JFrame {
 		targetTimer.start();
 		add(controlGUI, BorderLayout.SOUTH);
 		
+		Timer projectileTimer = new Timer(250, new ProjectileTimer());
+		projectileTimer.start();
+		
 		shape = new ProjectileShape();
 		projectile = new Projectile(shape);
 		shotCount = targets.size();
 		
 		updateBackground();
-		launchProjectile();
+	}
+	
+	public class ProjectileTimer implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (projectile.isLaunched()) {
+				moveProjectile();
+				repaint();
+			}
+		}
 	}
 
 	public class TimerListener implements ActionListener {
@@ -143,16 +156,12 @@ public class GameGUI extends JFrame {
 			fireButton = new JButton("Fire");
 			fireButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-
 					launchProjectile();
-
 				}
 			});
 			add(fireButton);
 		}
-
 	}
-
 
 	public JMenu createFileMenu() {
 		JMenu menu = new JMenu("File");
@@ -192,12 +201,32 @@ public class GameGUI extends JFrame {
 	}
 	
 	public void launchProjectile() {
-		// TODO Pass in angle from ControlGUI
-		Angle a = new Angle(45);
+		lastMoveTime = 0;
 		if(shotCount > 0) {
-			projectile.launch(a, getGravity());
+			projectile.launch();
 			System.out.println(shotCount);
 			--shotCount;
+		}
+	}
+	
+	private void moveProjectile() {
+		if (checkProjectileLocation()) {
+			long timeElapsed = lastMoveTime = lastMoveTime + 50;
+			shape.setX(shape.getX() + (int) ((int) (Projectile.VELOCITY * Math.cos(controlGUI.getAngle().getDegrees()*Math.PI/180))*timeElapsed/1000));
+			shape.setY(shape.getY() - (int) ((int) Projectile.VELOCITY * Math.sin(controlGUI.getAngle().getDegrees()*Math.PI/180)*timeElapsed/1000 - 0.5*getGravity()*Math.pow(timeElapsed/1000, 2)));
+			System.out.println("x " + shape.getX());
+			System.out.println("y " + shape.getY());
+		} else {
+			projectile.resetProjectile();
+		}
+	}
+	
+	private boolean checkProjectileLocation() {
+		if (shape.getX() >= 0 && shape.getY() >= (0 - shape.getRadius()*2)
+				&& shape.getX() <= FRAME_WIDTH && shape.getY() <= FRAME_HEIGHT) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 

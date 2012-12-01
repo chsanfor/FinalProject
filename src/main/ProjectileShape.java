@@ -1,18 +1,14 @@
 package main;
 
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
 //KEEP IN MIND THE GAME SCREEN IS 900x700
 
 public class ProjectileShape {
+	private final int initX, initY;
 	private int x;
 	private int y;
 	public static final int DIAMETER = 50;
@@ -22,11 +18,11 @@ public class ProjectileShape {
 	
 	//Default constructor
 	public ProjectileShape() {
-		x = 0;
-		y = 0;
 		width = DIAMETER / 2;
 		height = width;
 		radius = 4 * DIAMETER / 5;
+		initX = x = GameGUI.FRAME_WIDTH/2 - radius;
+		initY = y = GameGUI.FRAME_HEIGHT - 80 - (radius*2);
 	}
 
 	//Special constructor
@@ -34,6 +30,8 @@ public class ProjectileShape {
 		super();
 		this.x = x;
 		this.y = y;
+		initX = x;
+		initY = y;
 	}
 
 	//Returns the x location of the circle
@@ -91,7 +89,10 @@ public class ProjectileShape {
 		graphics2d.fillOval(x, y, 2 * radius, 2 * radius);
 	}
 
-	
+	public void reset() {
+		x = initX;
+		y = initY;
+	}
 	
 	//   Only for testing purposes; comment out after!
 
