@@ -26,6 +26,7 @@ public class GameGUI extends JFrame {
 	public static final int FRAME_WIDTH = 900;
 	public static final int STATIC_TARGETS = 3;
 	public static final int MOVING_TARGETS = 3;
+	public static final int ALLOWED_SHOTS = 5;
 	private static final String GAME_NAME = "GAME NAME"; // FIXME We need a name
 	private Background background;
 	private ImagePanel imagePanel;
@@ -85,7 +86,7 @@ public class GameGUI extends JFrame {
 		
 		shape = new ProjectileShape();
 		projectile = new Projectile(shape);
-		shotCount = targets.size();
+		shotCount = ALLOWED_SHOTS;
 		
 		updateBackground();
 	}
