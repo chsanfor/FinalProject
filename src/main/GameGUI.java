@@ -207,7 +207,6 @@ public class GameGUI extends JFrame {
 		lastMoveTime = 0;
 		if(shotCount > 0) {
 			projectile.launch();
-			System.out.println(shotCount);
 			--shotCount;
 		}
 	}
