@@ -16,8 +16,7 @@ import javax.swing.event.ChangeListener;
 public class ControlGUI extends JPanel {
 	private Angle angle;
 	private JSpinner angleSelect;
-	private double gravity;
-	private JLabel gravityLabel;
+	private JLabel gravityLabel, scoreLabel;
 //	public void displayAnglePanel() {
 //		
 //	}
@@ -51,10 +50,23 @@ public class ControlGUI extends JPanel {
 		gravityLabel.setAlignmentY(CENTER_ALIGNMENT);
 		gravityPanel.add(gravityLabel, BorderLayout.CENTER);
 		add(gravityPanel);
+		
+		JPanel scorePanel = new JPanel(new BorderLayout());
+		scorePanel.setBorder(new TitledBorder("Score"));
+		scorePanel.setPreferredSize(new Dimension(80, 40));
+		scoreLabel = new JLabel();
+		scoreLabel.setText(Integer.toString(0));
+		scoreLabel.setAlignmentY(CENTER_ALIGNMENT);
+		scorePanel.add(scoreLabel, BorderLayout.CENTER);
+		add(scorePanel);
 	}
 	
 	public void setGravity(double gravity) {
 		gravityLabel.setText(Double.toString(gravity));
+	}
+	
+	public void setPointsScored(int points) {
+		scoreLabel.setText(Integer.toString(points));
 	}
 	
 }

@@ -31,7 +31,7 @@ public class GameGUI extends JFrame {
 	private JMenuItem earthMenuItem, marsMenuItem;
 	private ArrayList<Target> targets;
 	private ControlGUIButton controlGUI;
-	private int pointsScored = 0;
+	private int pointsScored;
 	private ProjectileShape shape;
 	private Projectile projectile;
 	private int shotCount;
@@ -61,6 +61,7 @@ public class GameGUI extends JFrame {
 		menuBar.add(createFileMenu());
 		menuBar.add(createPlanetSelectMenu());
 		
+		pointsScored = 0;
 		targets = new ArrayList<Target>();
 		Random rand = new Random();
 		// Adding targets that aren't too close to missile launch site
@@ -119,6 +120,7 @@ public class GameGUI extends JFrame {
 			for(Target t: targets) {
 				if(t.isHit(projectile)) {
 					pointsScored += t.getPointValue();
+					controlGUI.setPointsScored(pointsScored);
 					targets.remove(t);
 					break;	
 				}
