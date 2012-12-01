@@ -59,15 +59,17 @@ public class Target {
 			xTopLeft = GameGUI.FRAME_WIDTH;
 		}
 		calcPointValue(xTopLeft, yTopLeft);
-		// g2.drawImage(targetImage, xTopLeft, yTopLeft, TARGETSIZE, TARGETSIZE, null);
-		// g2.drawString(String.valueOf(pointValue), 
-		// xTopLeft + TARGETSIZE/3, yTopLeft + TARGETSIZE/2);
 	}
 	
 		
-	// TODO - Andrew - Implement this!
+	// Checks if target has been hit, returns true if so
 	public boolean isHit(Projectile p) {
-		if(xTopLeft < 40) {
+		int xProjCenter = p.getShape().getX() + p.getShape().getRadius();
+		int yProjCenter = p.getShape().getY() + p.getShape().getRadius();
+		int xTargetCenter = xTopLeft + TARGETSIZE/2;
+		int yTargetCenter = yTopLeft + TARGETSIZE/2;
+		if(Math.abs(xProjCenter-xTargetCenter) < ((TARGETSIZE+ProjectileShape.DIAMETER)/2) &&
+				Math.abs(yProjCenter-yTargetCenter) < ((TARGETSIZE+ProjectileShape.DIAMETER)/2)) {
 			return true;
 		}
 		return false;
