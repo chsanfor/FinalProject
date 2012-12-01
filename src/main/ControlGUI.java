@@ -38,7 +38,7 @@ public class ControlGUI extends JPanel {
 		tf.setEditable(false);
 		angleSelect.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
-				angle.setAngle((Integer) angleSelect.getValue());
+				angle.setDegrees((Integer) angleSelect.getValue());
 			}
 		});
 		angleSelect.setSize(100, 20);

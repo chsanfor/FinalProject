@@ -4,29 +4,29 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 public class Projectile {
-	public final static double VELOCITY = 20;
+	public static final double VELOCITY = 20.0;
 	private boolean hasLaunched;
 	private ProjectileShape shape;
 	private int xLocation;
 	private int yLocation;
 	
+	//Custom constructor
 	public Projectile(ProjectileShape shape) {
 		hasLaunched = false;
 		this.shape = shape;
 	}
 	
+	//Returns the Projectile's ProjectileShape
 	public ProjectileShape getShape() {
 		return shape;
 	}
 
+	//Set the Projectile's ProjectileShape (not sure if this will see use)
 	public void setShape(ProjectileShape shape) {
 		this.shape = shape;
 	}
-	
-	public boolean hasLaunched() {
-		return hasLaunched;
-	}
 
+	//Finds the center x and y of the circle
 	public void calculateLocation() {
 		//TODO Needs finishing; should location be a field of x's and y's
 		//or a single x and y (i.e. the center of the projectile)?
@@ -35,18 +35,21 @@ public class Projectile {
 		yLocation = (shape.getY() - shape.getRadius());
 	}
 	
-	public void launch() {
+	//Launches the projectile (unless a GameGUI function is devised for this)
+	public void launch(Angle angle, double gravity) {
 		hasLaunched = true;
-	}
-	
-	public void resetProjectile() {
-		hasLaunched = false;
-		shape.reset();
+//		shape.setX(shape.getX() + dx);
+//		shape.setY(shape.getY() + dy);
+		//TODO Trajectory logic (involving degrees and gravity) goes here (unless there is a separate flight function)
 	}
 
+	//Calls ProjectileShape draw(), which draws the projectile
 	public void draw(Graphics g) {
-		// TODO Doesn't work yet
-		// System.out.println("Calling projectile draw");
+		Graphics2D g2 = (Graphics2D) g;
+		shape.draw(g2);
+	}
+	
+	public void update(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		shape.draw(g2);
 	}
@@ -55,9 +58,12 @@ public class Projectile {
 		return this.hasLaunched;
 	}
 	
-//	public void update(Graphics g) {
-//		System.out.println("Still working");
-//		Graphics2D g2 = (Graphics2D) g;
-//		shape.draw(g2);
-//	}
+	public void resetProjectile() {
+		hasLaunched = false;
+		shape.reset();
+	}
+	
+	public void launch() {
+		hasLaunched = true;
+	}
 }

@@ -7,8 +7,6 @@ import java.awt.RenderingHints;
 
 //KEEP IN MIND THE GAME SCREEN IS 900x700
 
-//TODO Background is intact, but doesn't draw projectile
-
 public class ProjectileShape {
 	private final int initX, initY;
 	private int x;
@@ -17,7 +15,8 @@ public class ProjectileShape {
 	private int width;
 	private int height;
 	private int radius;
-
+	
+	//Default constructor
 	public ProjectileShape() {
 		width = DIAMETER / 2;
 		height = width;
@@ -26,57 +25,68 @@ public class ProjectileShape {
 		initY = y = GameGUI.FRAME_HEIGHT - 80 - (radius*2);
 	}
 
+	//Special constructor
 	public ProjectileShape(int x, int y) {
 		super();
-		initX = this.x = x;
-		initY = this.y = y;
+		this.x = x;
+		this.y = y;
+		initX = x;
+		initY = y;
 	}
 
+	//Returns the x location of the circle
 	public int getX() {
 		return x;
 	}
 
+	//Sets the x location of the circle
 	public void setX(int x) {
 		this.x = x;
 	}
 
+	//Returns the y location of the circle
 	public int getY() {
 		return y;
 	}
 
+	//Sets the y location of the circle
 	public void setY(int y) {
 		this.y = y;
 	}
 
+	//Returns radius of circle
 	public int getRadius() {
 		return radius;
 	}
 
+	//Returns width of circle
 	public int getWidth() {
 		return width;
 	}
 
+	//Sets width of circle
 	public void setWidth(int width) {
 		this.width = width;
 	}
 
+	//Returns height of circle
 	public int getHeight() {
 		return height;
 	}
 
+	//Sets height of circle
 	public void setHeight(int height) {
 		this.height = height;
 	}
 
+	//Draws the projectile
 	public void draw(Graphics g) {	
-		// System.out.println("Calling projectileShape draw");
 		Graphics2D graphics2d = (Graphics2D) g;
 		graphics2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		graphics2d.setColor(Color.BLUE);
 		int m = Math.min(width, height);
 		radius = DIAMETER/2;
 		graphics2d.fillOval(x, y, 2 * radius, 2 * radius);
-		// System.out.println(getX() + " " + getY() + " " + getRadius());
 	}
 
 	public void reset() {
