@@ -2,16 +2,12 @@ package main;
 
 import java.awt.BorderLayout;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
-import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -84,6 +80,7 @@ public class GameGUI extends JFrame {
 		projectile = new Projectile(shape);
 		
 		updateBackground();
+		launchProjectile();
 	}
 
 	public class TimerListener implements ActionListener {
@@ -169,9 +166,10 @@ public class GameGUI extends JFrame {
 		}
 	}
 	
-	public void moveProjectile() {
-		//TODO Implement
-		//TODO Add logic for Target & Projectile collision.
+	public void launchProjectile() {
+		int dx, dy;
+		dx = dy = 0;
+		projectile.launch(dx, dy);
 	}
 
 	public void updateBackground() {
