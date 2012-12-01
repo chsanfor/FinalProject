@@ -1,12 +1,10 @@
 package main;
 
-import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
-import javax.swing.JPanel;
-
 public class Projectile {
+	private final double VELOCITY = 20;
 	private boolean hasLaunched;
 	private ProjectileShape shape;
 	private int xLocation;
@@ -37,16 +35,12 @@ public class Projectile {
 		yLocation = (shape.getY() - shape.getRadius());
 	}
 	
-	public void launch(Angle angle, double gravity) {
+	public void launch() {
 		hasLaunched = true;
-		//shape.setX(shape.getX() + dx);
-		//shape.setY(shape.getY() + dy);
-		//TODO Trajectory logic (involving degrees and gravity) goes here (unless there is a separate flight function)
 	}
 	
-	// TODO Rename.
-	public void trajectory(double gravity) {
-		
+	public void resetProjectile() {
+		//TODO IMPLEMENT
 	}
 
 	public void draw(Graphics g) {

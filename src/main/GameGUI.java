@@ -167,9 +167,8 @@ public class GameGUI extends JFrame {
 	}
 	
 	public void launchProjectile() {
-		// TODO Pass in angle from ControlGUI
-		Angle a = new Angle(45);
-		projectile.launch(a, getGravity());
+		projectile.launch();
+		
 	}
 
 	public void updateBackground() {
