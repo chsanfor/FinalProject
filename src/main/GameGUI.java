@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -29,7 +30,7 @@ public class GameGUI extends JFrame {
 	private ImagePanel imagePanel;
 	private JMenuItem earthMenuItem, marsMenuItem;
 	private ArrayList<Target> targets;
-	private ControlGUI controlGUI;
+	private ControlGUIButton controlGUI;
 	private int pointsScored = 0;
 	private ProjectileShape shape;
 	private Projectile projectile;
@@ -42,7 +43,7 @@ public class GameGUI extends JFrame {
 		super(GAME_NAME);
 		background = new Background(planet);
 		imagePanel = new ImagePanel(background.getImage());
-		controlGUI = new ControlGUI();
+		controlGUI = new ControlGUIButton();
 		earthMenuItem = new JMenuItem(Planet.EARTH.getName());
 		marsMenuItem = new JMenuItem(Planet.MARS.getName());
 
@@ -128,6 +129,27 @@ public class GameGUI extends JFrame {
 			this.image = image;
 		}
 	}
+	
+	private class ControlGUIButton extends ControlGUI {
+
+		private JButton fireButton;
+
+		public ControlGUIButton() {
+			super();
+
+			fireButton = new JButton("Fire");
+			fireButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+
+					launchProjectile();
+
+				}
+			});
+			add(fireButton);
+		}
+
+	}
+
 
 	public JMenu createFileMenu() {
 		JMenu menu = new JMenu("File");
