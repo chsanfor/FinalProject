@@ -214,8 +214,6 @@ public class GameGUI extends JFrame {
 			long timeElapsed = lastMoveTime = lastMoveTime + 50;
 			shape.setX(shape.getX() + (int) ((int) (Projectile.VELOCITY * Math.cos(controlGUI.getAngle().getDegrees()*Math.PI/180))*timeElapsed/1000));
 			shape.setY(shape.getY() - (int) ((int) Projectile.VELOCITY * Math.sin(controlGUI.getAngle().getDegrees()*Math.PI/180)*timeElapsed/1000 - 0.5*getGravity()*Math.pow(timeElapsed/1000, 2)));
-			System.out.println("x " + shape.getX());
-			System.out.println("y " + shape.getY());
 		} else {
 			projectile.resetProjectile();
 		}
