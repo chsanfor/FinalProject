@@ -1,20 +1,16 @@
 package main;
 
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 //KEEP IN MIND THE GAME SCREEN IS 900x700
 
 //TODO Background is intact, but doesn't draw projectile
 
 public class ProjectileShape {
+	private final int initX, initY;
 	private int x;
 	private int y;
 	public static final int DIAMETER = 50;
@@ -23,17 +19,17 @@ public class ProjectileShape {
 	private int radius;
 
 	public ProjectileShape() {
-		x = 0;
-		y = 0;
 		width = DIAMETER / 2;
 		height = width;
 		radius = 4 * DIAMETER / 5;
+		initX = x = GameGUI.FRAME_WIDTH/2 - radius;
+		initY = y = GameGUI.FRAME_HEIGHT - 80 - (radius*2);
 	}
 
 	public ProjectileShape(int x, int y) {
 		super();
-		this.x = x;
-		this.y = y;
+		initX = this.x = x;
+		initY = this.y = y;
 	}
 
 	public int getX() {
@@ -83,7 +79,10 @@ public class ProjectileShape {
 		// System.out.println(getX() + " " + getY() + " " + getRadius());
 	}
 
-	
+	public void reset() {
+		x = initX;
+		y = initY;
+	}
 	
 	//   Only for testing purposes; comment out after!
 

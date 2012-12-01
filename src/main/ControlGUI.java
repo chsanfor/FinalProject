@@ -57,4 +57,8 @@ public class ControlGUI extends JPanel {
 		gravityLabel.setText(Double.toString(gravity));
 	}
 	
+	public Angle getAngle() {
+		return angle;
+	}
+	
 }

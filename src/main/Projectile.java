@@ -4,7 +4,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 public class Projectile {
-	private final double VELOCITY = 20;
+	public final static double VELOCITY = 20;
 	private boolean hasLaunched;
 	private ProjectileShape shape;
 	private int xLocation;
@@ -23,7 +23,7 @@ public class Projectile {
 		this.shape = shape;
 	}
 	
-	public boolean isHasLaunched() {
+	public boolean hasLaunched() {
 		return hasLaunched;
 	}
 
@@ -40,7 +40,8 @@ public class Projectile {
 	}
 	
 	public void resetProjectile() {
-		//TODO IMPLEMENT
+		hasLaunched = false;
+		shape.reset();
 	}
 
 	public void draw(Graphics g) {
@@ -48,6 +49,10 @@ public class Projectile {
 		// System.out.println("Calling projectile draw");
 		Graphics2D g2 = (Graphics2D) g;
 		shape.draw(g2);
+	}
+	
+	public boolean isLaunched() {
+		return this.hasLaunched;
 	}
 	
 //	public void update(Graphics g) {

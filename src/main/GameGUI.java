@@ -34,7 +34,7 @@ public class GameGUI extends JFrame {
 	private int pointsScored = 0;
 	private ProjectileShape shape;
 	private Projectile projectile;
-
+	private long lastMoveTime;
 
 	/**
 	 * @param planet, default planet for GameGUI
@@ -77,11 +77,23 @@ public class GameGUI extends JFrame {
 		targetTimer.start();
 		add(controlGUI, BorderLayout.SOUTH);
 		
+		Timer projectileTimer = new Timer(250, new ProjectileTimer());
+		projectileTimer.start();
+		
 		shape = new ProjectileShape();
 		projectile = new Projectile(shape);
 		
 		updateBackground();
-		launchProjectile();
+	}
+	
+	public class ProjectileTimer implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (projectile.hasLaunched()) {
+				moveProjectile();
+				repaint();
+			}
+		}
 	}
 
 	public class TimerListener implements ActionListener {
@@ -140,16 +152,12 @@ public class GameGUI extends JFrame {
 			fireButton = new JButton("Fire");
 			fireButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-
 					launchProjectile();
-
 				}
 			});
 			add(fireButton);
 		}
-
 	}
-
 
 	public JMenu createFileMenu() {
 		JMenu menu = new JMenu("File");
@@ -189,8 +197,29 @@ public class GameGUI extends JFrame {
 	}
 	
 	public void launchProjectile() {
+		lastMoveTime = 0;
 		projectile.launch();
-		
+	}
+	
+	private void moveProjectile() {
+		if (checkProjectileLocation()) {
+			long timeElapsed = lastMoveTime = lastMoveTime + 50;
+			shape.setX(shape.getX() + (int) ((int) (Projectile.VELOCITY * Math.cos(controlGUI.getAngle().getAngle()*Math.PI/180))*timeElapsed/1000));
+			shape.setY(shape.getY() - (int) ((int) Projectile.VELOCITY * Math.sin(controlGUI.getAngle().getAngle()*Math.PI/180)*timeElapsed/1000 - 0.5*getGravity()*Math.pow(timeElapsed/1000, 2)));
+			System.out.println("x " + shape.getX());
+			System.out.println("y " + shape.getY());
+		} else {
+			projectile.resetProjectile();
+		}
+	}
+	
+	private boolean checkProjectileLocation() {
+		if (shape.getX() >= 0 && shape.getY() >= (0 - shape.getRadius()*2)
+				&& shape.getX() <= FRAME_WIDTH && shape.getY() <= FRAME_HEIGHT) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public void updateBackground() {
