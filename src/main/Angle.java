@@ -4,7 +4,7 @@ public class Angle {
 	private double degrees;
 	
 	public Angle(double d) {
-		if(d <= 180) {
+		if(d <= 360) {
 			degrees = d;
 		}
 		else {

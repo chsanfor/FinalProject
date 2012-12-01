@@ -68,11 +68,11 @@ public class GameGUI extends JFrame {
 		// Adding targets that aren't too close to missile launch site
 		for(int i = 0; i < STATIC_TARGETS; i++) {
 			targets.add(new Target(rand.nextInt(FRAME_WIDTH-Target.TARGETSIZE), 
-					rand.nextInt(FRAME_HEIGHT-4*Target.TARGETSIZE), false));
+					rand.nextInt(FRAME_HEIGHT-5*Target.TARGETSIZE), false));
 		}
 		for(int i = 0; i < MOVING_TARGETS; i++) {
 			targets.add(new Target(rand.nextInt(FRAME_WIDTH-Target.TARGETSIZE), 
-					rand.nextInt(FRAME_HEIGHT-4*Target.TARGETSIZE), true));
+					rand.nextInt(FRAME_HEIGHT-5*Target.TARGETSIZE), true));
 		}
 		// Targets move every 500 ms
 		Timer targetTimer = new Timer(500, new TimerListener());
@@ -204,7 +204,7 @@ public class GameGUI extends JFrame {
 		lastMoveTime = 0;
 		if(shotCount > 0) {
 			projectile.launch();
-			System.out.println(shotCount);
+			// System.out.println(shotCount);
 			--shotCount;
 		}
 	}
@@ -214,8 +214,8 @@ public class GameGUI extends JFrame {
 			long timeElapsed = lastMoveTime = lastMoveTime + 50;
 			shape.setX(shape.getX() + (int) ((int) (Projectile.VELOCITY * Math.cos(controlGUI.getAngle().getDegrees()*Math.PI/180))*timeElapsed/1000));
 			shape.setY(shape.getY() - (int) ((int) Projectile.VELOCITY * Math.sin(controlGUI.getAngle().getDegrees()*Math.PI/180)*timeElapsed/1000 - 0.5*getGravity()*Math.pow(timeElapsed/1000, 2)));
-			System.out.println("x " + shape.getX());
-			System.out.println("y " + shape.getY());
+			// System.out.println("x " + shape.getX());
+			// System.out.println("y " + shape.getY());
 		} else {
 			projectile.resetProjectile();
 		}
