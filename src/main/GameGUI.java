@@ -77,11 +77,11 @@ public class GameGUI extends JFrame {
 					rand.nextInt(FRAME_HEIGHT-4*Target.TARGETSIZE), true));
 		}
 		// Targets move every 500 ms
-		Timer targetTimer = new Timer(500, new TimerListener());
+		Timer targetTimer = new Timer(100, new TimerListener());
 		targetTimer.start();
 		add(controlGUI, BorderLayout.SOUTH);
 		
-		Timer projectileTimer = new Timer(250, new ProjectileTimer());
+		Timer projectileTimer = new Timer(50, new ProjectileTimer());
 		projectileTimer.start();
 		
 		shape = new ProjectileShape();
