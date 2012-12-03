@@ -14,7 +14,6 @@ import org.junit.Test;
 public class BasicTests {
 	
 	@Test
-	// TODO FIXME
 	public void testLaunch() {
 		Projectile projectile = new Projectile(new ProjectileShape());
 		projectile.launch();
@@ -36,11 +35,10 @@ public class BasicTests {
 	}
 	
 	@Test
-	//TODO FIXME
 	public void testShapeMoves() {
 		Projectile projectile = new Projectile(new ProjectileShape());
 		ProjectileShape projectileShape = projectile.getShape();
-		//projectile.launch(5, 5);
+		projectile.launch();
 		assertNotSame(0, projectileShape.getX());
 		assertNotSame(0, projectileShape.getY());
 	}

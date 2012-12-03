@@ -30,7 +30,7 @@ public class GameGUI extends JFrame {
 	private static final String GAME_NAME = "GAME NAME"; // FIXME We need a name
 	private Background background;
 	private ImagePanel imagePanel;
-	private JMenuItem earthMenuItem, marsMenuItem;
+	private JMenuItem earthMenuItem, marsMenuItem, moonMenuItem;
 	private ArrayList<Target> targets;
 	private ControlGUIButton controlGUI;
 	private int pointsScored;
@@ -49,9 +49,11 @@ public class GameGUI extends JFrame {
 		controlGUI = new ControlGUIButton();
 		earthMenuItem = new JMenuItem(Planet.EARTH.getName());
 		marsMenuItem = new JMenuItem(Planet.MARS.getName());
+		moonMenuItem = new JMenuItem(Planet.MOON.getName());
 
 		earthMenuItem.addActionListener(new PlanetItemListener());
 		marsMenuItem.addActionListener(new PlanetItemListener());
+		moonMenuItem.addActionListener(new PlanetItemListener());
 
 		setContentPane(imagePanel);
 		setLayout(new BorderLayout());
@@ -77,11 +79,11 @@ public class GameGUI extends JFrame {
 					rand.nextInt(FRAME_HEIGHT-5*Target.TARGETSIZE), true));
 		}
 		// Targets move every 500 ms
-		Timer targetTimer = new Timer(500, new TimerListener());
+		Timer targetTimer = new Timer(100, new TimerListener());
 		targetTimer.start();
 		add(controlGUI, BorderLayout.SOUTH);
 		
-		Timer projectileTimer = new Timer(250, new ProjectileTimer());
+		Timer projectileTimer = new Timer(50, new ProjectileTimer());
 		projectileTimer.start();
 		
 		shape = new ProjectileShape();
@@ -188,6 +190,7 @@ public class GameGUI extends JFrame {
 		JMenu menu = new JMenu("Change Planet");
 		menu.add(earthMenuItem);
 		menu.add(marsMenuItem);
+		menu.add(moonMenuItem);
 		return menu;
 	}
 
@@ -198,6 +201,8 @@ public class GameGUI extends JFrame {
 				background.setPlanet(Planet.EARTH);
 			} else if (e.getSource() == marsMenuItem) {
 				background.setPlanet(Planet.MARS);
+			} else if (e.getSource() == moonMenuItem) {
+				background.setPlanet(Planet.MOON);
 			}
 			updateBackground();
 		}
@@ -249,7 +254,7 @@ public class GameGUI extends JFrame {
 	}
 
 	public static void main (String args[]) {
-		GameGUI gui = new GameGUI(Planet.EARTH);
+		GameGUI gui = new GameGUI(Planet.MOON);
 		gui.setVisible(true);
 	}
 }

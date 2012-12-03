@@ -2,11 +2,18 @@ package main;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
+import javax.swing.KeyStroke;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
@@ -26,7 +33,7 @@ public class ControlGUI extends JPanel {
 //	}
 	public ControlGUI() {
 		angle = new Angle(0);
-		setBorder(new TitledBorder("Missle Angle"));
+		setBorder(new TitledBorder("Controls"));
 		setPreferredSize(new Dimension(GameGUI.FRAME_WIDTH, 80));
 		SpinnerNumberModel angleModel = new SpinnerNumberModel();
 		angleModel.setMaximum(180);
@@ -40,6 +47,29 @@ public class ControlGUI extends JPanel {
 				angle.setDegrees((Integer) angleSelect.getValue());
 			}
 		});
+		class DecreaseAction extends AbstractAction {
+			
+			public void actionPerformed(ActionEvent e) {
+				if((Integer)angleSelect.getValue() > 0) {
+					angleSelect.setValue((Integer)angleSelect.getValue() - 1);
+            		angle.setDegrees((Integer)angleSelect.getValue());
+				}
+			}
+			
+		}
+		class IncreaseAction extends AbstractAction {
+			public void actionPerformed(ActionEvent e) {
+				if((Integer)angleSelect.getValue() < 180) {
+					angleSelect.setValue((Integer)angleSelect.getValue() + 1);
+					angle.setDegrees((Integer)angleSelect.getValue());
+				}
+			}
+		}
+		Action down = new DecreaseAction();
+		Action up = new IncreaseAction();
+		this.getActionMap().put("down", down);
+		this.getActionMap().put("up", up);
+		
 		angleSelect.setSize(100, 20);
 		add(angleSelect);
 		
@@ -59,6 +89,8 @@ public class ControlGUI extends JPanel {
 		scoreLabel.setAlignmentY(CENTER_ALIGNMENT);
 		scorePanel.add(scoreLabel, BorderLayout.CENTER);
 		add(scorePanel);
+		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("DOWN"), "down");
+		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("UP"), "up");
 	}
 	
 	public void setGravity(double gravity) {
