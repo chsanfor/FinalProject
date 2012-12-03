@@ -27,7 +27,7 @@ public class GameGUI extends JFrame {
 	public static final int STATIC_TARGETS = 3;
 	public static final int MOVING_TARGETS = 3;
 	public static final int ALLOWED_SHOTS = 5;
-	private static final String GAME_NAME = "Exploding Brown Meteors from Uranus"; // FIXME We need a name
+	private static final String GAME_NAME = "Exploding Brown Meteors from Uranus";
 	private Background background;
 	private ImagePanel imagePanel;
 	private JMenuItem earthMenuItem, marsMenuItem, moonMenuItem;
