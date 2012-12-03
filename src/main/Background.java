@@ -11,7 +11,7 @@ import javax.imageio.ImageIO;
 public class Background {
 
 	public enum Planet {
-		EARTH(9.81, "Earth"), MARS(3.71, "Mars");
+		EARTH(9.81, "Earth"), MARS(3.71, "Mars"), MOON(1.62, "Moon");
 		private double gravity;
 		private String name;
 		Planet(double gravity, String name) {
@@ -46,7 +46,7 @@ public class Background {
 		this.planet = planet;
 		if (planet == Planet.EARTH) {
 			try {
-				image = ImageIO.read(new File("src/main/resources/earth_view_from_moon.jpg"));
+				image = ImageIO.read(new File("src/main/resources/moon_from_earth.jpg"));
 			} catch (IOException e) {
 				System.out.println("Earth image not found.");
 			}
@@ -55,6 +55,12 @@ public class Background {
 				image = ImageIO.read(new File("src/main/resources/mars_view.jpg"));
 			} catch (IOException e) {
 				System.out.println("Mars image not found.");
+			}
+		} else if (planet == Planet.MOON) {
+			try {
+				image = ImageIO.read(new File("src/main/resources/earth_view_from_moon.jpg"));
+			} catch (IOException e) {
+				System.out.println("Moon image not found.");
 			}
 		}
 	}
