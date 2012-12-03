@@ -89,6 +89,7 @@ public class GameGUI extends JFrame {
 		shape = new ProjectileShape();
 		projectile = new Projectile(shape);
 		shotCount = ALLOWED_SHOTS;
+		controlGUI.setShotsRemaining(shotCount);
 		
 		updateBackground();
 	}
@@ -213,6 +214,7 @@ public class GameGUI extends JFrame {
 		if(shotCount > 0) {
 			projectile.launch();
 			--shotCount;
+			controlGUI.setShotsRemaining(shotCount);
 		}
 	}
 	
