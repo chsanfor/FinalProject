@@ -27,7 +27,7 @@ public class GameGUI extends JFrame {
 	public static final int STATIC_TARGETS = 3;
 	public static final int MOVING_TARGETS = 3;
 	public static final int ALLOWED_SHOTS = 5;
-	private static final String GAME_NAME = "GAME NAME"; // FIXME We need a name
+	private static final String GAME_NAME = "EXPLODING BROWN TARGETS OUT OF URANUS"; // FIXME We need a name
 	private Background background;
 	private ImagePanel imagePanel;
 	private JMenuItem earthMenuItem, marsMenuItem, moonMenuItem;
@@ -73,11 +73,11 @@ public class GameGUI extends JFrame {
 		// Adding targets that aren't too close to missile launch site
 		for(int i = 0; i < STATIC_TARGETS; i++) {
 			targets.add(new Target(rand.nextInt(FRAME_WIDTH-Target.TARGETSIZE), 
-					rand.nextInt(FRAME_HEIGHT-4*Target.TARGETSIZE), false));
+					rand.nextInt(FRAME_HEIGHT-5*Target.TARGETSIZE), false));
 		}
 		for(int i = 0; i < MOVING_TARGETS; i++) {
 			targets.add(new Target(rand.nextInt(FRAME_WIDTH-Target.TARGETSIZE), 
-					rand.nextInt(FRAME_HEIGHT-4*Target.TARGETSIZE), true));
+					rand.nextInt(FRAME_HEIGHT-5*Target.TARGETSIZE), true));
 		}
 		// Targets move every 500 ms
 		Timer targetTimer = new Timer(100, new TimerListener());
