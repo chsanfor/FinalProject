@@ -180,11 +180,19 @@ public class GameGUI extends JFrame {
 		class MenuItemListener implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//showHelpDialog();
+				showHelpDialog();
 			}
 		}
 		item.addActionListener(new MenuItemListener());
 		return item;
+	}
+	
+	public void showHelpDialog() {
+		JOptionPane.showMessageDialog(this, "How to Play:\n"
+				+ "You have " + ALLOWED_SHOTS + " energy balls to destroy the "
+				+ (STATIC_TARGETS + MOVING_TARGETS) + " targets."
+				+ "\nSet the angle using the keyboard arrows (UP & DOWN) or with the mouse."
+				+ "\nThe energy ball can be moved during flight by changing the angle.", "Help", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	public JMenu createFileMenu() {
@@ -274,7 +282,7 @@ public class GameGUI extends JFrame {
 	
 	public void startGameSplashScreen() {
 		JOptionPane.showMessageDialog(this, "Defend the planet from falling meteors using your energy ball."
-				+ "\nGame dynamics and hints can be found under Help menu."
+				+ "\nSee the Help menu for instructions on how to play."
 				+ "\nChoose a firing angle and press the fire button to begin.",
 				"Welcome to " + GAME_NAME, JOptionPane.INFORMATION_MESSAGE);
 	}
