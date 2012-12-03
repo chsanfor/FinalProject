@@ -27,7 +27,7 @@ public class GameGUI extends JFrame {
 	public static final int STATIC_TARGETS = 3;
 	public static final int MOVING_TARGETS = 3;
 	public static final int ALLOWED_SHOTS = 5;
-	private static final String GAME_NAME = "EXPLODING BROWN TARGETS OUT OF URANUS"; // FIXME We need a name
+	private static final String GAME_NAME = "Exploding Brown Meteors from Uranus";
 	private Background background;
 	private ImagePanel imagePanel;
 	private JMenuItem earthMenuItem, marsMenuItem, moonMenuItem;
@@ -65,6 +65,7 @@ public class GameGUI extends JFrame {
 		setJMenuBar(menuBar);
 		menuBar.add(createFileMenu());
 		menuBar.add(createPlanetSelectMenu());
+		menuBar.add(createHelpMenu());
 		
 		pointsScored = 0;
 		targets = new ArrayList<Target>();
@@ -168,6 +169,32 @@ public class GameGUI extends JFrame {
 			add(fireButton);
 		}
 	}
+	
+	public JMenu createHelpMenu() {
+		JMenu menu = new JMenu("Help");
+		menu.add(createHelpDialog());
+		return menu;
+	}
+	
+	public JMenuItem createHelpDialog() {
+		JMenuItem item = new JMenuItem("Show Help");
+		class MenuItemListener implements ActionListener {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				showHelpDialog();
+			}
+		}
+		item.addActionListener(new MenuItemListener());
+		return item;
+	}
+	
+	public void showHelpDialog() {
+		JOptionPane.showMessageDialog(this, "How to Play:\n"
+				+ "You have " + ALLOWED_SHOTS + " energy balls to destroy the "
+				+ (STATIC_TARGETS + MOVING_TARGETS) + " targets."
+				+ "\nSet the angle using the keyboard arrows (UP & DOWN) or with the mouse."
+				+ "\nThe energy ball can be moved during flight by changing the angle.", "Help", JOptionPane.INFORMATION_MESSAGE);
+	}
 
 	public JMenu createFileMenu() {
 		JMenu menu = new JMenu("File");
@@ -254,9 +281,17 @@ public class GameGUI extends JFrame {
 		JOptionPane.showMessageDialog(this, "Your Score: " + pointsScored);
 		System.exit(0);
 	}
+	
+	public void startGameSplashScreen() {
+		JOptionPane.showMessageDialog(this, "Defend the planet from falling meteors using your energy ball."
+				+ "\nSee the Help menu for instructions on how to play."
+				+ "\nChoose a firing angle and press the fire button to begin.",
+				"Welcome to " + GAME_NAME, JOptionPane.INFORMATION_MESSAGE);
+	}
 
 	public static void main (String args[]) {
 		GameGUI gui = new GameGUI(Planet.MOON);
 		gui.setVisible(true);
+		gui.startGameSplashScreen();
 	}
 }
