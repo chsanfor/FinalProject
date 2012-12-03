@@ -65,6 +65,7 @@ public class GameGUI extends JFrame {
 		setJMenuBar(menuBar);
 		menuBar.add(createFileMenu());
 		menuBar.add(createPlanetSelectMenu());
+		menuBar.add(createHelpMenu());
 		
 		pointsScored = 0;
 		targets = new ArrayList<Target>();
@@ -167,6 +168,24 @@ public class GameGUI extends JFrame {
 			add(fireButton);
 		}
 	}
+	
+	public JMenu createHelpMenu() {
+		JMenu menu = new JMenu("Help");
+		menu.add(createHelpDialog());
+		return menu;
+	}
+	
+	public JMenuItem createHelpDialog() {
+		JMenuItem item = new JMenuItem("Show Help");
+		class MenuItemListener implements ActionListener {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//showHelpDialog();
+			}
+		}
+		item.addActionListener(new MenuItemListener());
+		return item;
+	}
 
 	public JMenu createFileMenu() {
 		JMenu menu = new JMenu("File");
@@ -252,9 +271,17 @@ public class GameGUI extends JFrame {
 		JOptionPane.showMessageDialog(this, "Your Score: " + pointsScored);
 		System.exit(0);
 	}
+	
+	public void startGameSplashScreen() {
+		JOptionPane.showMessageDialog(this, "Defend the planet from falling meteors using your energy ball."
+				+ "\nGame dynamics and hints can be found under Help menu."
+				+ "\nChoose a firing angle and press the fire button to begin.",
+				"Welcome to " + GAME_NAME, JOptionPane.INFORMATION_MESSAGE);
+	}
 
 	public static void main (String args[]) {
 		GameGUI gui = new GameGUI(Planet.MOON);
 		gui.setVisible(true);
+		gui.startGameSplashScreen();
 	}
 }
