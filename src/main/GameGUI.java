@@ -29,10 +29,10 @@ public class GameGUI extends JFrame {
 	public static final int STATIC_TARGETS = 3;
 	public static final int MOVING_TARGETS = 3;
 	public static final int ALLOWED_SHOTS = 5;
-	private static final String GAME_NAME = "GAME NAME"; // FIXME We need a name
+	private static final String GAME_NAME = "Exploding Brown Meteors from Uranus";
 	private Background background;
 	private ImagePanel imagePanel;
-	private JMenuItem earthMenuItem, marsMenuItem;
+	private JMenuItem earthMenuItem, marsMenuItem, moonMenuItem;
 	private ArrayList<Target> targets;
 	private ControlGUIButton controlGUI;
 	private int pointsScored;
@@ -51,9 +51,11 @@ public class GameGUI extends JFrame {
 		controlGUI = new ControlGUIButton();
 		earthMenuItem = new JMenuItem(Planet.EARTH.getName());
 		marsMenuItem = new JMenuItem(Planet.MARS.getName());
+		moonMenuItem = new JMenuItem(Planet.MOON.getName());
 
 		earthMenuItem.addActionListener(new PlanetItemListener());
 		marsMenuItem.addActionListener(new PlanetItemListener());
+		moonMenuItem.addActionListener(new PlanetItemListener());
 
 		setContentPane(imagePanel);
 		setLayout(new BorderLayout());
@@ -65,6 +67,7 @@ public class GameGUI extends JFrame {
 		setJMenuBar(menuBar);
 		menuBar.add(createFileMenu());
 		menuBar.add(createPlanetSelectMenu());
+		menuBar.add(createHelpMenu());
 		
 		pointsScored = 0;
 		targets = new ArrayList<Target>();
@@ -72,11 +75,11 @@ public class GameGUI extends JFrame {
 		// Adding targets that aren't too close to missile launch site
 		for(int i = 0; i < STATIC_TARGETS; i++) {
 			targets.add(new Target(rand.nextInt(FRAME_WIDTH-Target.TARGETSIZE), 
-					rand.nextInt(FRAME_HEIGHT-4*Target.TARGETSIZE), false));
+					rand.nextInt(FRAME_HEIGHT-5*Target.TARGETSIZE), false));
 		}
 		for(int i = 0; i < MOVING_TARGETS; i++) {
 			targets.add(new Target(rand.nextInt(FRAME_WIDTH-Target.TARGETSIZE), 
-					rand.nextInt(FRAME_HEIGHT-4*Target.TARGETSIZE), true));
+					rand.nextInt(FRAME_HEIGHT-5*Target.TARGETSIZE), true));
 		}
 		// Targets move every 500 ms
 		Timer targetTimer = new Timer(100, new TimerListener());
@@ -89,6 +92,7 @@ public class GameGUI extends JFrame {
 		shape = new ProjectileShape();
 		projectile = new Projectile(shape);
 		shotCount = ALLOWED_SHOTS;
+		controlGUI.setShotsRemaining(shotCount);
 		
 		updateBackground();
 	}
@@ -170,6 +174,32 @@ public class GameGUI extends JFrame {
 			add(fireButton);
 		}
 	}
+	
+	public JMenu createHelpMenu() {
+		JMenu menu = new JMenu("Help");
+		menu.add(createHelpDialog());
+		return menu;
+	}
+	
+	public JMenuItem createHelpDialog() {
+		JMenuItem item = new JMenuItem("Show Help");
+		class MenuItemListener implements ActionListener {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				showHelpDialog();
+			}
+		}
+		item.addActionListener(new MenuItemListener());
+		return item;
+	}
+	
+	public void showHelpDialog() {
+		JOptionPane.showMessageDialog(this, "How to Play:\n"
+				+ "You have " + ALLOWED_SHOTS + " energy balls to destroy the "
+				+ (STATIC_TARGETS + MOVING_TARGETS) + " targets."
+				+ "\nSet the angle using the keyboard arrows (UP & DOWN) or with the mouse."
+				+ "\nThe energy ball can be moved during flight by changing the angle.", "Help", JOptionPane.INFORMATION_MESSAGE);
+	}
 
 	public JMenu createFileMenu() {
 		JMenu menu = new JMenu("File");
@@ -193,6 +223,7 @@ public class GameGUI extends JFrame {
 		JMenu menu = new JMenu("Change Planet");
 		menu.add(earthMenuItem);
 		menu.add(marsMenuItem);
+		menu.add(moonMenuItem);
 		return menu;
 	}
 
@@ -203,6 +234,8 @@ public class GameGUI extends JFrame {
 				background.setPlanet(Planet.EARTH);
 			} else if (e.getSource() == marsMenuItem) {
 				background.setPlanet(Planet.MARS);
+			} else if (e.getSource() == moonMenuItem) {
+				background.setPlanet(Planet.MOON);
 			}
 			updateBackground();
 		}
@@ -213,6 +246,7 @@ public class GameGUI extends JFrame {
 		if(shotCount > 0) {
 			projectile.launch();
 			--shotCount;
+			controlGUI.setShotsRemaining(shotCount);
 		}
 	}
 	
@@ -252,7 +286,7 @@ public class GameGUI extends JFrame {
 		JOptionPane.showMessageDialog(this, "Your Score: " + pointsScored);
 		System.exit(0);
 	}
-	
+
 	public void drawTrajectory(Graphics g) {
 		Graphics2D graphics2d = (Graphics2D) g;
 		int x = shape.getX() + shape.getRadius();
@@ -274,9 +308,16 @@ public class GameGUI extends JFrame {
 			}
 		}
 	}
+	public void startGameSplashScreen() {
+		JOptionPane.showMessageDialog(this, "Defend the planet from falling meteors using your energy ball."
+				+ "\nSee the Help menu for instructions on how to play."
+				+ "\nChoose a firing angle and press the fire button to begin.",
+				"Welcome to " + GAME_NAME, JOptionPane.INFORMATION_MESSAGE);
+	}
 
 	public static void main (String args[]) {
-		GameGUI gui = new GameGUI(Planet.EARTH);
+		GameGUI gui = new GameGUI(Planet.MOON);
 		gui.setVisible(true);
+		gui.startGameSplashScreen();
 	}
 }

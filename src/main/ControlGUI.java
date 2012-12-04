@@ -3,8 +3,6 @@ package main;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -23,7 +21,7 @@ import javax.swing.event.ChangeListener;
 public class ControlGUI extends JPanel {
 	private Angle angle;
 	private JSpinner angleSelect;
-	private JLabel gravityLabel, scoreLabel;
+	private JLabel gravityLabel, scoreLabel, shotsLabel;
 //	public void displayAnglePanel() {
 //		
 //	}
@@ -72,9 +70,6 @@ public class ControlGUI extends JPanel {
 		this.getActionMap().put("down", down);
 		this.getActionMap().put("up", up);
 		
-		angleSelect.setSize(100, 20);
-		add(angleSelect);
-		
 		JPanel gravityPanel = new JPanel(new BorderLayout());
 		gravityPanel.setBorder(new TitledBorder("Gravity"));
 		gravityPanel.setPreferredSize(new Dimension(60, 40));
@@ -82,6 +77,14 @@ public class ControlGUI extends JPanel {
 		gravityLabel.setAlignmentY(CENTER_ALIGNMENT);
 		gravityPanel.add(gravityLabel, BorderLayout.CENTER);
 		add(gravityPanel);
+		
+		JPanel shotsPanel = new JPanel(new BorderLayout());
+		shotsPanel.setBorder(new TitledBorder("Shots Remaining"));
+		shotsPanel.setPreferredSize(new Dimension(120, 40));
+		shotsLabel = new JLabel();
+		shotsLabel.setAlignmentY(CENTER_ALIGNMENT);
+		shotsPanel.add(shotsLabel, BorderLayout.CENTER);
+		add(shotsPanel);
 		
 		JPanel scorePanel = new JPanel(new BorderLayout());
 		scorePanel.setBorder(new TitledBorder("Score"));
@@ -93,6 +96,10 @@ public class ControlGUI extends JPanel {
 		add(scorePanel);
 		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("DOWN"), "down");
 		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("UP"), "up");
+		
+		angleSelect.setSize(100, 20);
+		angleSelect.setBorder(new TitledBorder("Angle"));
+		add(angleSelect);
 	}
 	
 	public void setGravity(double gravity) {
@@ -103,8 +110,11 @@ public class ControlGUI extends JPanel {
 		scoreLabel.setText(Integer.toString(points));
 	}
 	
+	public void setShotsRemaining(int shots) {
+		shotsLabel.setText(Integer.toString(shots));
+	}
+	
 	public Angle getAngle() {
 		return angle;
 	}
-	
 }
