@@ -54,6 +54,7 @@ public class ControlGUI extends JPanel {
 					angleSelect.setValue((Integer)angleSelect.getValue() - 1);
             		angle.setDegrees((Integer)angleSelect.getValue());
 				}
+				angleSelect.getChangeListeners()[0].stateChanged(new ChangeEvent(0));
 			}
 			
 		}
@@ -63,6 +64,7 @@ public class ControlGUI extends JPanel {
 					angleSelect.setValue((Integer)angleSelect.getValue() + 1);
 					angle.setDegrees((Integer)angleSelect.getValue());
 				}
+				angleSelect.getChangeListeners()[0].stateChanged(new ChangeEvent(0));
 			}
 		}
 		Action down = new DecreaseAction();

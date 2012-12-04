@@ -22,7 +22,7 @@ public class ProjectileShape {
 		height = width;
 		radius = 4 * DIAMETER / 5;
 		initX = x = GameGUI.FRAME_WIDTH/2 - radius;
-		initY = y = GameGUI.FRAME_HEIGHT - 80 - (radius*2);
+		initY = y = GameGUI.FRAME_HEIGHT - 80 - (2*radius);
 	}
 
 	//Special constructor

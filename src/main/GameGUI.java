@@ -1,7 +1,9 @@
 package main;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -141,6 +143,9 @@ public class GameGUI extends JFrame {
 				}
 			}
 			projectile.draw(g);
+			if(!projectile.isLaunched()) {
+				drawTrajectory(g);
+			}
 		}
 
 		public void setImage(Image image) {
@@ -246,6 +251,28 @@ public class GameGUI extends JFrame {
 	public void endGameSplashScreen() {
 		JOptionPane.showMessageDialog(this, "Your Score: " + pointsScored);
 		System.exit(0);
+	}
+	
+	public void drawTrajectory(Graphics g) {
+		Graphics2D graphics2d = (Graphics2D) g;
+		int x = shape.getX() + shape.getRadius();
+		int y = shape.getY() + shape.getRadius();
+		double slope = -Math.tan(controlGUI.getAngle().getDegrees() * Math.PI/180);
+		for(int i = 0; i < 5; ++i) {
+			double t = (double) i / 2;
+			x += (int) (Projectile.VELOCITY * Math.cos(controlGUI.getAngle().getDegrees()*Math.PI/180) * t);
+			y += (int) (-Projectile.VELOCITY * Math.sin(controlGUI.getAngle().getDegrees()*Math.PI/180) * t + .5*getGravity()*Math.pow(t, 2));
+//			slope = (-Projectile.VELOCITY * Math.sin(controlGUI.getAngle().getDegrees()*Math.PI/180) + getGravity()*t) / 
+//					(Projectile.VELOCITY * Math.cos(controlGUI.getAngle().getDegrees()*Math.PI/180));
+			double dx = 10 * 1 / Math.sqrt(1 + Math.pow(slope, 2));
+			if(x < FRAME_WIDTH && y < FRAME_HEIGHT - 80) {
+				graphics2d.setColor(Color.YELLOW);
+				graphics2d.drawLine(x, y, x + (int) dx, y + (int)dx*(int)slope);
+			}
+			else {
+				break;
+			}
+		}
 	}
 
 	public static void main (String args[]) {
